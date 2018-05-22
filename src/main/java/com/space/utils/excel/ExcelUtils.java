@@ -97,11 +97,10 @@ public class ExcelUtils {
 
     public static SXSSFRow hdRow = null;
 
-    static int listlength = 0;
+    static int listLength = 0;
 
     /**
      * 设置工作表的格式
-     * @param
      */
     public static void createExcel() {
         wb = new SXSSFWorkbook(1000);
@@ -124,7 +123,7 @@ public class ExcelUtils {
      * @throws Exception
      */
     public static void addHeader(List<String> rowvalues, boolean isFilter) throws Exception {
-        listlength = rowvalues.size();
+        listLength = rowvalues.size();
         // 表头样式及背景色
         CellStyle hdStyle = wb.createCellStyle();
         hdStyle.setAlignment(HorizontalAlignment.CENTER);
