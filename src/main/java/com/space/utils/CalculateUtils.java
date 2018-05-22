@@ -11,6 +11,29 @@ import java.text.DecimalFormat;
 public class CalculateUtils {
 
     /**
+     * 求两个数字的最大公约数
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public static long commonDivisor(long num1,long num2){
+        if (num1 == num2) {
+            return num1;
+        }
+        long max = num1 > num2 ? num1 : num2;
+        long min = num1 < num2 ? num1 : num2;
+        if ( max % min == 0 ) {
+            return min;
+        }
+        for ( long i = min ; i > 0 ; i -- ) {
+            if ( min % i == 0 && max % i == 0) {
+                return i;
+            }
+        }
+        return 1;
+    }
+
+    /**
      * 求两个数字的最小公倍数
      */
     public static long diploid(long num1,long num2) {
