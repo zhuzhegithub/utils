@@ -28,7 +28,7 @@ public class HttpGetUtils {
         URL url = new URL(templatePath);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         /**
-         * 3.设置超时时间限制   xxx毫秒
+         * 3.设置请求超时和读取超时时间限制   xxx毫秒
          */
         httpURLConnection.setConnectTimeout(60000);
         httpURLConnection.setReadTimeout(10000);
