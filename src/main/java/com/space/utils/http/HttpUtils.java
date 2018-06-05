@@ -17,18 +17,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -76,6 +71,7 @@ public class HttpUtils {
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         return httpClient.execute(request);
     }
 
@@ -101,6 +97,7 @@ public class HttpUtils {
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         if (bodys != null) {
             List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
 
@@ -139,6 +136,7 @@ public class HttpUtils {
         if (StringUtils.isNotBlank(body)) {
             request.setEntity(new StringEntity(body, "utf-8"));
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         return httpClient.execute(request);
     }
 
@@ -167,6 +165,7 @@ public class HttpUtils {
         if (body != null) {
             request.setEntity(new ByteArrayEntity(body));
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         return httpClient.execute(request);
     }
 
@@ -194,6 +193,7 @@ public class HttpUtils {
         if (StringUtils.isNotBlank(body)) {
             request.setEntity(new StringEntity(body, "utf-8"));
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         return httpClient.execute(request);
     }
 
@@ -221,6 +221,7 @@ public class HttpUtils {
         if (body != null) {
             request.setEntity(new ByteArrayEntity(body));
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         return httpClient.execute(request);
     }
 
@@ -244,6 +245,7 @@ public class HttpUtils {
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
         }
+        request.setConfig(setTimeOutConfig(request.getConfig()));
         return httpClient.execute(request);
     }
 
@@ -338,6 +340,19 @@ public class HttpUtils {
         } catch (NoSuchAlgorithmException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    /**
+     * 设置 连接超时、 请求超时 、 读取超时  毫秒
+     * @param requestConfig
+     * @return
+     */
+    private static RequestConfig setTimeOutConfig(RequestConfig requestConfig){
+        return RequestConfig.copy(requestConfig)
+                .setConnectionRequestTimeout(60000)
+                .setConnectTimeout(60000)
+                .setSocketTimeout(10000)
+                .build();
     }
 
     /**
