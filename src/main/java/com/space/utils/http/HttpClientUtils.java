@@ -15,9 +15,8 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 /**
- *
  * @author zhuzhe
- * 2017/12/11
+ * @date 2017/12/11
  * HttpClient工具类
  */
 @Slf4j
@@ -25,12 +24,13 @@ public class HttpClientUtils {
 
     /**
      * 以jsonString形式发送HttpPost的Json请求，String形式返回响应结果
+     *
      * @param url
      * @param jsonString
      * @return
      */
     public static String sendPostJsonStr(String url, String jsonString) throws IOException {
-        if (jsonString==null||jsonString.isEmpty()) {
+        if (jsonString == null || jsonString.isEmpty()) {
             return sendPost(url);
         }
         String resp = "";
