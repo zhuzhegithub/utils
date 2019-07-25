@@ -17,12 +17,17 @@ import java.util.Map;
 
 /**
  * <p>
- * RSA公钥/私钥/签名工具包
+ *     RSA公钥/私钥/签名工具包
  * </p>
  * <p>
- * RSA 公钥加密算法是1977年由Ron Rivest、Adi Shamirh和LenAdleman在（美国麻省理工学院）开发的。
- * RSA取名来自开发他们三者的名字。RSA是目前最有影响力的公钥加密算法，它能够抵抗到目前为止已知的
- * 所有密码攻击，已被ISO推荐为公钥数据加密标准。
+ *     RSA 公钥加密算法是1977年由Ron Rivest、Adi Shamirh和LenAdleman在（美国麻省理工学院）开发的。
+ *     RSA取名来自开发他们三者的名字。RSA是目前最有影响力的公钥加密算法，它能够抵抗到目前为止已知的
+ *     所有密码攻击，已被ISO推荐为公钥数据加密标准。
+ * </p>
+ * <p>
+ *     加密解密：公钥加密的密文只有通过私钥才可以解密，同样，私钥加密的密文只有通过公钥才可以解密；
+ *     签名：签名不同于加解密，只有私钥可以用来签名，公钥用来验证签名，签名无法被解密成明文，
+ *          公钥仅是验证签名的正确性。{@link RSAUtil#verify(byte[], java.lang.String, java.lang.String)}
  * </p>
  */
 public class RSAUtil {
