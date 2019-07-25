@@ -12,6 +12,11 @@ import java.nio.charset.Charset;
  * @author zhuzhe
  * @date 2018/4/24 15:05
  */
+
+/**
+ * 建议使用 {@link AESUtil}
+ */
+@Deprecated
 public class DesUtils {
 
     private static final String DEFAULT_CHARSET = "UTF-8";
