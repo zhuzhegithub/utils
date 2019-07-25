@@ -61,7 +61,9 @@ public class AESUtil {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         // 2.根据ecnodeRules规则初始化密钥生成器
         // 生成一个128位的随机源,根据传入的字节数组
-        keyGenerator.init(128, new SecureRandom(key));
+        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+        secureRandom.setSeed(key);
+        keyGenerator.init(128, secureRandom);
         // 3.产生原始对称密钥
         SecretKey secretKey = keyGenerator.generateKey();
         // 4.获得原始对称密钥的字节数组
