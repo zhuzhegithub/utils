@@ -374,9 +374,20 @@ public class HttpUtils {
      * @throws IOException
      */
     public static JSONObject parseJson(HttpResponse httpResponse) throws IOException {
+        return JSON.parseObject(parseString(httpResponse));
+    }
+
+    /**
+     * 将结果转换成 String
+     *
+     * @param httpResponse
+     * @return
+     * @throws IOException
+     */
+    public static String parseString(HttpResponse httpResponse) throws IOException {
         HttpEntity entity = httpResponse.getEntity();
         String resp = EntityUtils.toString(entity, "UTF-8");
         EntityUtils.consume(entity);
-        return JSON.parseObject(resp);
+        return resp;
     }
 }
