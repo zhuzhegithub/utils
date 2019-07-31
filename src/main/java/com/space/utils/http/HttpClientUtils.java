@@ -15,15 +15,18 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 /**
+ * HttpClient工具类
+ *
  * @author zhuzhe
  * @date 2017/12/11
- * HttpClient工具类
+ * @email zhe.zhu1@outlook.com
  */
 @Slf4j
 public class HttpClientUtils {
 
     /**
      * 以jsonString形式发送HttpPost的Json请求，String形式返回响应结果
+     * 可使用 {@link HttpUtils#doPost(java.lang.String, java.lang.String, java.util.Map, java.util.Map, java.lang.String)} 代替
      *
      * @param url
      * @param jsonString

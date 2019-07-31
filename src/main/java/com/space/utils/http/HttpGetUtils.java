@@ -2,9 +2,12 @@ package com.space.utils.http;
 
 /**
  * http get请求工具类
+ *
  * @author zhuzhe
  * @date 2018/4/19 16:32
+ * @email zhe.zhu1@outlook.com
  */
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +18,7 @@ public class HttpGetUtils {
 
     /**
      * 获取页面内容
+     *
      * @param templatePath
      * @return
      * @throws IOException
@@ -51,16 +55,16 @@ public class HttpGetUtils {
          * 7.使用输入流接受数据
          */
         InputStream inputStream = httpURLConnection.getInputStream();
-        //此处可以用Stringbuffer等接收
+        //此处可以用StringBuffer等接收
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] b = new byte[1024];
-        int len=0;
+        int len = 0;
         while (true) {
-            len=inputStream.read(b);
+            len = inputStream.read(b);
             if (len == -1) {
                 break;
             }
-            byteArrayOutputStream.write(b,0,len);
+            byteArrayOutputStream.write(b, 0, len);
         }
         return byteArrayOutputStream.toString();
     }
