@@ -49,6 +49,7 @@ import java.util.Map;
  *
  * @author zhuzhe
  * @date 2018/5/3 11:46
+ * @email zhe.zhu1@outlook.com
  */
 public class HttpUtils {
 
@@ -97,7 +98,7 @@ public class HttpUtils {
             request.addHeader(e.getKey(), e.getValue());
         }
         request.setConfig(setTimeOutConfig(request.getConfig()));
-        if (bodys != null) {
+        if (bodys != null && bodys.size() > 0) {
             List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
 
             for (String key : bodys.keySet()) {
@@ -372,7 +373,7 @@ public class HttpUtils {
      * @return
      * @throws IOException
      */
-    public static JSONObject getJson(HttpResponse httpResponse) throws IOException {
+    public static JSONObject parseJson(HttpResponse httpResponse) throws IOException {
         HttpEntity entity = httpResponse.getEntity();
         String resp = EntityUtils.toString(entity, "UTF-8");
         EntityUtils.consume(entity);
