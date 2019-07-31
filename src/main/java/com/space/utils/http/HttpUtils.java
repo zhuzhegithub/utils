@@ -46,6 +46,7 @@ import java.util.Map;
 
 /**
  * http请求工具类
+ *
  * @author zhuzhe
  * @date 2018/5/3 11:46
  */
@@ -56,7 +57,6 @@ public class HttpUtils {
      *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @return
@@ -66,7 +66,7 @@ public class HttpUtils {
                                      Map<String, String> headers,
                                      Map<String, String> querys)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpGet request = new HttpGet(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -80,7 +80,6 @@ public class HttpUtils {
      *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @param bodys
@@ -92,7 +91,7 @@ public class HttpUtils {
                                       Map<String, String> querys,
                                       Map<String, String> bodys)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpPost request = new HttpPost(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -116,7 +115,6 @@ public class HttpUtils {
      *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @param body
@@ -128,7 +126,7 @@ public class HttpUtils {
                                       Map<String, String> querys,
                                       String body)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpPost request = new HttpPost(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -145,7 +143,6 @@ public class HttpUtils {
      *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @param body
@@ -157,7 +154,7 @@ public class HttpUtils {
                                       Map<String, String> querys,
                                       byte[] body)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpPost request = new HttpPost(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -171,9 +168,9 @@ public class HttpUtils {
 
     /**
      * Put String
+     *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @param body
@@ -185,7 +182,7 @@ public class HttpUtils {
                                      Map<String, String> querys,
                                      String body)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpPut request = new HttpPut(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -199,9 +196,9 @@ public class HttpUtils {
 
     /**
      * Put stream
+     *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @param body
@@ -213,7 +210,7 @@ public class HttpUtils {
                                      Map<String, String> querys,
                                      byte[] body)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpPut request = new HttpPut(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -230,7 +227,6 @@ public class HttpUtils {
      *
      * @param host
      * @param path
-     *
      * @param headers
      * @param querys
      * @return
@@ -240,7 +236,7 @@ public class HttpUtils {
                                         Map<String, String> headers,
                                         Map<String, String> querys)
             throws Exception {
-        HttpClient httpClient = wrapClient(host,path);
+        HttpClient httpClient = wrapClient(host, path);
         HttpDelete request = new HttpDelete(buildUrl(host, path, querys));
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.addHeader(e.getKey(), e.getValue());
@@ -251,6 +247,7 @@ public class HttpUtils {
 
     /**
      * 构建请求的 url
+     *
      * @param host
      * @param path
      * @param querys
@@ -291,15 +288,16 @@ public class HttpUtils {
 
     /**
      * 获取 HttpClient
+     *
      * @param host
      * @param path
      * @return
      */
-    private static HttpClient wrapClient(String host,String path) {
+    private static HttpClient wrapClient(String host, String path) {
         HttpClient httpClient = HttpClientBuilder.create().build();
         if (host != null && host.startsWith("https://")) {
             return sslClient();
-        }else if (StringUtils.isBlank(host) && path != null && path.startsWith("https://")) {
+        } else if (StringUtils.isBlank(host) && path != null && path.startsWith("https://")) {
             return sslClient();
         }
         return httpClient;
@@ -308,28 +306,36 @@ public class HttpUtils {
     /**
      * 在调用SSL之前需要重写验证方法，取消检测SSL
      * 创建ConnectionManager，添加Connection配置信息
+     *
      * @return HttpClient 支持https
      */
     private static HttpClient sslClient() {
         try {
             // 在调用SSL之前需要重写验证方法，取消检测SSL
             X509TrustManager trustManager = new X509TrustManager() {
-                @Override public X509Certificate[] getAcceptedIssuers() {
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
-                @Override public void checkClientTrusted(X509Certificate[] xcs, String str) {}
-                @Override public void checkServerTrusted(X509Certificate[] xcs, String str) {}
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] xcs, String str) {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] xcs, String str) {
+                }
             };
             SSLContext ctx = SSLContext.getInstance(SSLConnectionSocketFactory.TLS);
-            ctx.init(null, new TrustManager[] { trustManager }, null);
+            ctx.init(null, new TrustManager[]{trustManager}, null);
             SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(ctx, NoopHostnameVerifier.INSTANCE);
             // 创建Registry
             RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
-                    .setExpectContinueEnabled(Boolean.TRUE).setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM,AuthSchemes.DIGEST))
+                    .setExpectContinueEnabled(Boolean.TRUE).setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
                     .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
             Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
                     .register("http", PlainConnectionSocketFactory.INSTANCE)
-                    .register("https",socketFactory).build();
+                    .register("https", socketFactory).build();
             // 创建ConnectionManager，添加Connection配置信息
             PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
             CloseableHttpClient closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
@@ -344,10 +350,14 @@ public class HttpUtils {
 
     /**
      * 设置 连接超时、 请求超时 、 读取超时  毫秒
+     *
      * @param requestConfig
      * @return
      */
-    private static RequestConfig setTimeOutConfig(RequestConfig requestConfig){
+    private static RequestConfig setTimeOutConfig(RequestConfig requestConfig) {
+        if (requestConfig == null) {
+            requestConfig = RequestConfig.DEFAULT;
+        }
         return RequestConfig.copy(requestConfig)
                 .setConnectionRequestTimeout(60000)
                 .setConnectTimeout(60000)
@@ -357,6 +367,7 @@ public class HttpUtils {
 
     /**
      * 将结果转换成JSONObject
+     *
      * @param httpResponse
      * @return
      * @throws IOException
