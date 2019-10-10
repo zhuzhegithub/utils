@@ -180,7 +180,9 @@ public class ExcelUtils {
      * @param resp
      * @throws Exception
      */
-    public static void export(HttpServletResponse resp) throws Exception {
+    public static void export(HttpServletResponse resp, String filename) throws Exception {
+        resp.setHeader("Content-disposition", "attachment; filename=" + filename + ".xlsx");
+        resp.setContentType("application/msexcel");
         OutputStream fileOut = resp.getOutputStream();
         wb.write(fileOut);
         fileOut.close();
